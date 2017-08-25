@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Articulos</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left color="royal" (click)="signOut()" icon-left>
+        <ion-icon name="exit"></ion-icon>Cerrar Sesión
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Lista de Articulos
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list *ngFor="let articulo of articulos | async ">
+            <ion-item text-wrap *ngFor="let item of articulo | values ">
+              <ion-row>
+                  <ion-col col-md-10 col-12>
+                    <p>{{ item.value.titulo }}</p>
+                    <ion-note>{{item.value.timestamp * -1000 | date }} - {{ articulo.$key | pubName | async }}</ion-note>
+                  </ion-col>
+                  <ion-col text-right col-md-2 col-12>
+                    <button ion-button small outline (click)="verMas(articulo.$key, item.key)">
+                      Ver Más
+                    </button>
+                  </ion-col>
+                </ion-row>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="agregar()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

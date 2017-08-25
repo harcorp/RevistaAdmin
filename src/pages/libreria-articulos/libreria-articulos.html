@@ -1,0 +1,41 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Libreria de Articulos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Lista de Libreria de Articulos
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let articulo of articulos | async">
+              <ion-row>
+                <ion-col>
+                  <h3>{{ articulo.nombre }}</h3>
+                  <p>{{ articulo.descripcion }}</p>
+                  <ion-note>{{ articulo.fecha * -1000 | date}} - {{ articulo.type }}</ion-note>
+                </ion-col>
+                <ion-col text-right>
+                  <button ion-button small outline (click)="eliminar(articulo.$key, articulo.file, articulo.thumbnail)">
+                    Eliminar
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-fab right bottom>
+      <button ion-fab color="primary" (click)="agregar()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+</ion-content>

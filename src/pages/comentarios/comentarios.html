@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>Comentarios</ion-title>
+      <ion-buttons end>
+        <button ion-button icon-left color="royal" (click)="signOut()" icon-left>
+          <ion-icon name="exit"></ion-icon>Cerrar Sesión
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content padding class="masters">
+    <ion-row>
+        <ion-col>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                Lista de Comentarios
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list *ngFor="let comentario of comentarios | async">
+                <ion-item *ngFor="let item of comentario | values">
+                  <ion-row>
+                    <ion-col col-md-9 col-12>
+                      <h2>{{ item.value.uid_user | displayName | async }} - 
+                          <ion-badge *ngIf="!item.value.aproved" item-end>
+                              No Aprobado
+                            </ion-badge>
+                            <ion-badge *ngIf="item.value.aproved" color="secondary" item-end>
+                              Aprobado
+                            </ion-badge>
+                      </h2>
+                      <ion-note>{{item.value.timestamp * -1000 | date }} - <b>{{ item.value.parent + '/' + comentario.$key | articuloName | async }}</b></ion-note>
+                      <p *ngIf="item.value.type == 1">{{ item.value.texto }}</p>
+                      <p *ngIf="item.value.type == 2">
+                        <audio controlsList="nodownload" controls [attr.src]="item.value.file | urlImage | async"></audio>
+                      </p>
+                      <p *ngIf="item.value.type == 3">
+                        <video controlsList="nodownload" width="320" height="240" [attr.src]="item.value.file | urlImage | async" controls>
+                        </video>
+                      </p>
+                    </ion-col>
+                    <ion-col text-right col-md-3 col-12 >
+                        <button ion-button small outline color="secondary" *ngIf="!item.value.aproved" (click)="aprobar(comentario.$key, item.key, item.value.uid_user)">
+                          Aprobar
+                        </button>
+                        <button ion-button small outline (click)="eliminar(comentario.$key, item.key, item.value.uid_user, item.value.file, item.value.aproved)">
+                          Eliminar
+                        </button>
+                    </ion-col>
+                  </ion-row>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+</ion-content>

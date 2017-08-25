@@ -1,0 +1,95 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Detalle del Articulo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col col-md-9 col-12>
+        <ion-row>
+          <ion-col col-12>
+            <ion-card>
+              <ion-card-header>
+                <ion-row>
+                  <ion-col>
+                    <ion-card-title>
+                      <span *ngIf="!editar">{{ art.titulo }}</span>
+                      <ion-item *ngIf="editar">
+                          <ion-label color="primary">Titulo</ion-label>
+                          <ion-input [(ngModel)]="art.titulo" ></ion-input>
+                        </ion-item>
+                    </ion-card-title>
+                    <ion-note>{{ art.timestamp * -1000 | date }}</ion-note>
+                    
+                  </ion-col>
+                  <ion-col text-right>
+                    <button ion-button clear icon-only (click)="switchEditar()" *ngIf="!editar"><ion-icon name="create" item-start></ion-icon></button>                                
+                    <button ion-button clear (click)="guardar()" icon-left *ngIf="editar"><ion-icon name="bookmark" item-start></ion-icon> Guardar</button>                                  
+                    <button ion-button clear icon-only (click)="eliminar()"><ion-icon name="trash" item-start ></ion-icon></button>                
+                  </ion-col>
+                </ion-row>
+              </ion-card-header>
+              <ion-card-content>
+                <p *ngIf="!editar">{{ art.descripcion }}</p>
+                <ion-item *ngIf="editar">
+                    <ion-label color="primary">Descripción</ion-label>
+                    <ion-textarea rows="6" [(ngModel)]="art.descripcion" ></ion-textarea>
+                  </ion-item>     
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col col-12>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>
+                  Comentarios
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list>
+                    <ion-item *ngFor="let comentario of comentarios | async">
+                        <h2>{{ comentario.uid_user | displayName | async }} - 
+                          <ion-badge *ngIf="!comentario.aproved" item-end>
+                            No Aprobado
+                          </ion-badge>
+                          <ion-badge *ngIf="comentario.aproved" color="secondary" item-end>
+                            Aprobado
+                          </ion-badge>
+                        </h2>
+                        <p *ngIf="comentario.type == 1">{{ comentario.texto }}</p>
+                        <p *ngIf="comentario.type == 2">
+                          <audio controlsList="nodownload" controls [attr.src]="comentario.file | urlImage | async"></audio>
+                        </p>
+                        <p *ngIf="comentario.type == 3">
+                          <video controlsList="nodownload" width="320" height="240" [attr.src]="comentario.file | urlImage | async" controls>
+                          </video>
+                        </p>
+                    </ion-item>
+                  </ion-list>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    <ion-col col-md-3 col-12>
+        <ion-card>
+          <img *ngIf="!editar" [attr.src]="art.thumbnail | urlImage | async" />
+          <ion-item *ngIf="editar">
+              <input type="file"  accept="image/*" id="thumbnail" (change)="fileEvent($event)" />
+            </ion-item>
+        </ion-card>
+          <ion-card>
+            <iframe *ngIf="!editar" width="100%" height="150" [src]="art.video | youtube" frameborder="0" allowfullscreen>
+            </iframe>
+            <ion-item *ngIf="editar">
+              <ion-label color="primary" stacked>Video</ion-label>
+                <ion-input type="text" [(ngModel)]="art.video" ></ion-input>
+              </ion-item>
+          </ion-card>
+      </ion-col>
+  </ion-row>
+</ion-content>

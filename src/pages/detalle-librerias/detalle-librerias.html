@@ -1,0 +1,58 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Agregar</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Agregar libreria
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <form [formGroup]="formulario" (submit)="cargar()" novalidate>                
+          <ion-list>
+              <ion-item>
+                <ion-label color="primary" stacked>Nombre</ion-label>    
+                <ion-input #nombre formControlName="nombre" [(ngModel)]="libreria.nombre" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="error-message" *ngIf="!formulario.controls.nombre.valid">
+                  <p>Campo Requerido.</p>
+              </ion-item>
+              <ion-item>
+                <ion-label color="primary" stacked>Descripción</ion-label>
+                <ion-input #descripcion formControlName="descripcion" [(ngModel)]="libreria.descripcion" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="error-message" *ngIf="!formulario.controls.descripcion.valid">
+                  <p>Campo Requerido.</p>
+              </ion-item>
+              <ion-item>
+                Imagen: 
+                <input type="file" formControlName="thumbnail" #thumbnail accept="image/*" id="thumbnail" (change)="fileEvent2($event)" />
+              </ion-item>
+              <ion-item>
+                Archivo:
+                <input type="file" formControlName="file" accept="pdf|docx|doc|image/*" id="file" (change)="fileEvent($event)" />
+              </ion-item>
+              <ion-item class="error-message" *ngIf="!formulario.controls.file.valid">
+                  <p>Debe subir un archivo valido. pdf,docx,doc,imagen</p>
+              </ion-item>
+          </ion-list>
+          <ion-row>
+            <ion-col>
+              <button ion-button block>Publicar</button>
+            </ion-col>
+          </ion-row>
+            </form>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

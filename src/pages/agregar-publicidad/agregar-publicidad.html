@@ -1,0 +1,46 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Agregar</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Agregar Publicidad
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item>
+                <ion-label color="primary" stacked>Tipo</ion-label>                    
+                <ion-select  [(ngModel)]="banner.type">
+                    <ion-option value=1>Banner Web</ion-option>
+                    <ion-option value=2>Banner Moviles</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label color="primary" stacked>Vinculo</ion-label>    
+              <ion-input [(ngModel)]="banner.link" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <input type="file" accept="image/*" id="thumbnail" (change)="fileEvent($event)" />
+            </ion-item>
+          </ion-list>
+          <ion-row>
+              <ion-col>
+                <button ion-button block (click)="cargar()">Publicar</button>
+              </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

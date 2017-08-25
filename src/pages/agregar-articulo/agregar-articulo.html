@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Articulo</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left color="royal" (click)="signOut()" icon-left>
+        <ion-icon name="exit"></ion-icon>Cerrar Sesión
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Agregar Articulo
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <form [formGroup]="formulario" (submit)="cargar()" novalidate>
+              <ion-list>
+                  <ion-item>
+                    <ion-label color="primary" stacked>Titulo</ion-label>    
+                    <ion-input #titulo formControlName="titulo" [(ngModel)]="articulo.titulo" type="text"></ion-input>
+                  </ion-item>
+                  <ion-item class="error-message" *ngIf="!formulario.controls.titulo.valid">
+                      <p>Campo Requerido.</p>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label color="primary" stacked>Descripción</ion-label>
+                    <ion-input #descripcion formControlName="descripcion" [(ngModel)]="articulo.descripcion" type="text"></ion-input>
+                  </ion-item>
+                  <ion-item class="error-message" *ngIf="!formulario.controls.descripcion.valid">
+                      <p>Campo Requerido.</p>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label color="primary" stacked>Video</ion-label>
+                    <ion-input #video formControlName="video" type="text" ></ion-input>
+                  </ion-item>
+                  <ion-item class="error-message" *ngIf="!formulario.controls.descripcion.valid">
+                      <p>Campo Requerido.</p>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>Publicación Superior</ion-label>
+                      <ion-select #parent formControlName="parent" [(ngModel)]="articulo.parent">
+                        <ion-option *ngFor="let publicacion of publicaciones | async" [value]="publicacion.$key">{{ publicacion.titulo }}</ion-option>
+                      </ion-select>
+                  </ion-item>
+                  <ion-item>
+                    <input type="file" #thumbnail formControlName="thumbnail" accept="image/*" id="thumbnail" (change)="fileEvent($event)" />
+                  </ion-item>
+                  <ion-item class="error-message" *ngIf="!formulario.controls.thumbnail.valid">
+                      <p>Debe subir un archivo de imagen valido.</p>
+                  </ion-item>
+              </ion-list>
+              <ion-row>
+                <ion-col>
+                  <button ion-button block>Publicar</button>
+                </ion-col>
+              </ion-row>
+            </form>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

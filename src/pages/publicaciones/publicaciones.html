@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Publicaciones</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left color="royal" (click)="signOut()" icon-left>
+        <ion-icon name="exit"></ion-icon>Cerrar Sesión
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Lista de Publicaciones
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let publicacion of publicaciones | async">
+              <ion-row>
+                <ion-col col-md-9 col-12>
+                  <p>{{ publicacion.titulo }}</p>
+                  <ion-note>{{ publicacion.timestamp * -1000 | date }}</ion-note>
+                </ion-col>
+                <ion-col text-right col-md-3 col-12>
+                  <button ion-button block outline (click)="verMas(publicacion.$key)">
+                    Ver Más
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-fab right bottom>
+      <button ion-fab color="primary" (click)="agregar()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

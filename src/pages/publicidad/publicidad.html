@@ -1,0 +1,127 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Publicidad</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Banners Web
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-row>
+            <ion-col ion-item *ngFor="let banner of bannersInicio | async">
+              <img [attr.src]="banner.image | urlImage | async" />
+              <ion-row>
+                <ion-col>
+                 <ion-note> {{ banner.timestamp * -1000 | date }} </ion-note>
+                </ion-col>
+                <ion-col text-right>
+                  <button ion-button small clear icon-only (click)="eliminar(banner.$key, 1, banner.image)"><ion-icon name="trash" item-start ></ion-icon></button>                
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            </ion-row>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Banners Aplicaciones
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+              <ion-item *ngFor="let banner of bannersMovil | async">
+                <img [attr.src]="banner.image | urlImage | async" />
+                <ion-row>
+                  <ion-col>
+                    <ion-note>{{ banner.timestamp * -1000 | date }}</ion-note>
+                  </ion-col>
+                  <ion-col text-right>
+                    <button ion-button small clear icon-only (click)="eliminar(banner.$key, 2, banner.image)"><ion-icon name="trash" item-start ></ion-icon></button>                
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+            </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col>
+        <ion-card>
+            <ion-row>
+              <ion-col>
+                <ion-card-title>
+                  Video Inicio
+                </ion-card-title>
+              </ion-col>
+              <ion-col text-right>
+                <button (click)="editarVid()" ion-button small clear icon-only>
+                  <ion-icon *ngIf="!editVid" name="create"></ion-icon>
+                  <ion-icon *ngIf="editVid" name="checkmark"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+            <iframe *ngIf="!editVid" width="100%" height="310" [src]="videoId | youtube" frameborder="0" allowfullscreen>
+              </iframe>
+              <ion-item *ngIf="editVid">
+                  <ion-label color="primary">Video</ion-label>
+                  <ion-input [(ngModel)]="dato.videoId" ></ion-input>
+                </ion-item>
+        </ion-card>
+        <ion-card>
+            <ion-row>
+                <ion-col>
+                  <ion-card-title>
+                    Imagen Inicio
+                  </ion-card-title>
+                </ion-col>
+                <ion-col text-right>
+                  <button ion-button small clear icon-only (click)="editarImg()">
+                      <ion-icon *ngIf="!editImg" name="create"></ion-icon>
+                      <ion-icon *ngIf="editImg" name="checkmark"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+            <img *ngIf="!editImg" [attr.src]="dato.imagen | urlImage | async">
+            <ion-item *ngIf="editImg">
+                <input type="file"  accept="image/*" id="thumbnail" (change)="fileEvent($event)" />
+              </ion-item>
+        </ion-card>
+        <ion-card>
+            <ion-row>
+                <ion-col>
+                  <ion-card-title>
+                    Audio Inicio
+                  </ion-card-title>
+                </ion-col>
+                <ion-col text-right>
+                  <button ion-button small clear icon-only (click)="editarAud()">
+                      <ion-icon *ngIf="!editAud" name="create"></ion-icon>
+                      <ion-icon *ngIf="editAud" name="checkmark"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+            <audio *ngIf="!editAud" style="width: 100%" controlsList="nodownload" controls [attr.src]="dato.audio | urlImage | async"></audio>   
+            <ion-item *ngIf="editAud">
+                <input type="file"  accept="audio/mp3" id="thumbnail" (change)="fileEvent2($event)" />
+            </ion-item>                         
+        </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-fab right bottom>
+      <button ion-fab color="primary" (click)="agregar()"><ion-icon name="add"></ion-icon></button>
+   </ion-fab>
+</ion-content>
