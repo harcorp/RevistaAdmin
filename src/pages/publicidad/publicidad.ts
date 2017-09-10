@@ -21,12 +21,14 @@ export class PublicidadPage {
   editVid: boolean = false;
   editImg: boolean = false;
   editAud: boolean = false;
+  editQS: boolean = false;
   videoId: string;
 
   loader: any;
 
   imagen: any;
   audio: any;
+  quienesSomos: string;
 
   constructor(public afDB: AngularFireDatabase, public alertCtrl: AlertController,
     public toastCtrl: ToastController, public loadingCtrl: LoadingController,
@@ -36,6 +38,7 @@ export class PublicidadPage {
       this.datos.subscribe(v => {
         this.dato = v.val();
         this.videoId = this.dato.videoId;
+        this.quienesSomos = this.dato.quienesSomos;
       });
       this.bannersInicio = this.afDB.list('/banners', {
         query: {
@@ -207,4 +210,20 @@ export class PublicidadPage {
     this.audio = file;
   }
 
+  editarQS(){
+    if(this.editQS){
+      if(this.dato.quienesSomos != this.quienesSomos){
+        this.presentLoading();
+        this.datos.update({quienesSomos: this.dato.quienesSomos}).then(result => {
+          this.loader.dismiss();
+          this.presentToast('Actualización Correcta.');
+        });
+      }else{
+        this.presentToast('Ningun Cambio');
+      }
+      this.editQS = !this.editQS;
+    }else{
+      this.editQS = !this.editQS;
+    }
+  }
 }

@@ -24,6 +24,9 @@
                     <ion-note>{{ articulo.fecha * -1000 | date}} - {{ articulo.type }}</ion-note>
                   </ion-col>
                   <ion-col text-right>
+                      <button ion-button small outline (click)="editar(articulo.$key, 2)">
+                          Editar
+                        </button>
                     <button ion-button small outline (click)="eliminar(articulo.$key, articulo.file, articulo.thumbnail)">
                       Eliminar
                     </button>

@@ -27,6 +27,7 @@ import { AgregarPublicacionPage } from "../pages/agregar-publicacion/agregar-pub
 import { AgregarArticuloPage } from "../pages/agregar-articulo/agregar-articulo";
 import { PublicidadPage } from "../pages/publicidad/publicidad";
 import { AgregarPublicidadPage } from "../pages/agregar-publicidad/agregar-publicidad";
+import { EditarLibreriaPage } from "../pages/editar-libreria/editar-libreria";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB0f-eM3Eq-_V960Re-sOGlj_YA8HGvSpw",
@@ -54,6 +55,7 @@ export const firebaseConfig = {
     AgregarArticuloPage,
     PublicidadPage,
     AgregarPublicidadPage,
+    EditarLibreriaPage
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ export const firebaseConfig = {
     AgregarPublicacionPage,
     AgregarArticuloPage,
     PublicidadPage,
-    AgregarPublicidadPage
+    AgregarPublicidadPage,
+    EditarLibreriaPage
   ],
   providers: [
     StatusBar,

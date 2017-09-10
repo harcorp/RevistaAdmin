@@ -33,7 +33,7 @@
                             </ion-badge>
                       </h2>
                       <ion-note>{{item.value.timestamp * -1000 | date }} - <b>{{ item.value.parent + '/' + comentario.$key | articuloName | async }}</b></ion-note>
-                      <p *ngIf="item.value.type == 1">{{ item.value.texto }}</p>
+                      <p text-wrap *ngIf="item.value.type == 1">{{ item.value.texto }}</p>
                       <p *ngIf="item.value.type == 2">
                         <audio controlsList="nodownload" controls [attr.src]="item.value.file | urlImage | async"></audio>
                       </p>

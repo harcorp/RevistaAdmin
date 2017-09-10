@@ -1,0 +1,47 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Editar</ion-title>
+    <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <ion-icon name="md-close"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-content>
+            <form [formGroup]="formulario" (submit)="update()" novalidate>
+                <ion-list>
+                    <ion-item>
+                      <ion-label color="primary" stacked>Nombre</ion-label>    
+                      <ion-input #nombre formControlName="nombre" [(ngModel)]="articulo.nombre" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item class="error-message" *ngIf="!formulario.controls.nombre.valid">
+                        <p>Campo Requerido.</p>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label color="primary" stacked>Descripción</ion-label>
+                      <ion-textarea #descripcion formControlName="descripcion" [(ngModel)]="articulo.descripcion" type="text"></ion-textarea>
+                    </ion-item>
+                    <ion-item class="error-message" *ngIf="!formulario.controls.descripcion.valid">
+                        <p>Campo Requerido.</p>
+                    </ion-item>
+                </ion-list>
+                <ion-row>
+                  <ion-col>
+                    <button ion-button block>Actualizar</button>
+                  </ion-col>
+                </ion-row>
+              </form>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
