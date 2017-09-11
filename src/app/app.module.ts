@@ -1,3 +1,4 @@
+import { AgregarCategoriaPage } from './../pages/agregar-categoria/agregar-categoria';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -55,7 +56,8 @@ export const firebaseConfig = {
     AgregarArticuloPage,
     PublicidadPage,
     AgregarPublicidadPage,
-    EditarLibreriaPage
+    EditarLibreriaPage,
+    AgregarCategoriaPage
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,8 @@ export const firebaseConfig = {
     AgregarArticuloPage,
     PublicidadPage,
     AgregarPublicidadPage,
-    EditarLibreriaPage
+    EditarLibreriaPage,
+    AgregarCategoriaPage
   ],
   providers: [
     StatusBar,

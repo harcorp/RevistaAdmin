@@ -36,9 +36,47 @@
         </ion-card-content>
       </ion-card>
     </ion-col>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Lista de Categorías
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let categoria of categorias | async">
+              <ion-row>
+                <ion-col col-md-9 col-12>
+                  <p>{{ categoria.nombre }}</p>
+                </ion-col>
+                <ion-col text-right col-md-3 col-12>
+                  <button ion-button block outline (click)="eliminar(categoria.$key)">
+                    Eliminar
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
   </ion-row>
 
   <ion-fab right bottom>
-      <button ion-fab color="primary" (click)="agregar()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
+    <button ion-fab color="primary">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    
+  <ion-fab-list side="top">
+    <button ion-fab (click)="agregar()">
+      <ion-icon name="list-box"></ion-icon>
+      <ion-label>Agregar Publicacion</ion-label>
+    </button>
+    <button ion-fab (click)="agregarCategoria()">
+      <ion-icon name="albums"></ion-icon>
+      <ion-label>Agregar Categoría</ion-label>
+    </button>
+  </ion-fab-list>
+</ion-fab>
 </ion-content>

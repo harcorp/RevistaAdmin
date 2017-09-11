@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>
+        Agregar Categoría
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <ion-icon name="md-close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label color="primary" stacked>Nombre</ion-label>    
+              <ion-input [(ngModel)]="categoria" type="text"></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-row>
+            <ion-col>
+              <button ion-button block (click)="crear()">Crear</button>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
