@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
-import { FirebaseApp } from 'angularfire2';
-import 'firebase/storage';
 import { Publicacion } from "../../models/publicacion";
 import { DetalleArticulosPage } from "../detalle-articulos/detalle-articulos";
 
@@ -18,14 +16,12 @@ export class DetallePublicacionPage {
   pubPerm: FirebaseObjectObservable<any>;
   articulos: FirebaseListObservable<any>;
   pub: Publicacion = new Publicacion;
-  thumbnail: string;
   loader: any;
   editar: boolean = false;
   categorias: FirebaseListObservable<any>;    
 
   constructor(private afDB: AngularFireDatabase, private alertCtrl: AlertController,
     private loadingCtrl: LoadingController, private toastCtrl: ToastController,
-    private fb: FirebaseApp,
     public navCtrl: NavController, public navParams: NavParams) {
 
     this.categorias = this.afDB.list('category_pub');      
@@ -44,8 +40,6 @@ export class DetallePublicacionPage {
    this.pubPerm.subscribe(prueba => {
      if(prueba.val() != null)
       this.pub = prueba.val();
-     console.log(this.pub);
-      this.thumbnail = prueba.val().thumbnail;
    });
   }
 
@@ -93,13 +87,10 @@ export class DetallePublicacionPage {
 
   eliminarFinal(){
     this.presentLoading();
-    this.fb.storage().ref().child(this.thumbnail).delete().then(
-      ref => {
-        this.publicacion.remove().then(resolve => {
-          this.navCtrl.pop();
-          this.loader.dismiss();
-          this.presentToast('Eliminado satisfactoriamente');
-        });
+      this.publicacion.remove().then(resolve => {
+        this.navCtrl.pop();
+        this.loader.dismiss();
+        this.presentToast('Eliminado satisfactoriamente');
       });
   }
 

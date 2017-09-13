@@ -1,6 +1,6 @@
 import { AgregarCategoriaPage } from './../pages/agregar-categoria/agregar-categoria';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, enableProdMode } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -38,6 +38,7 @@ export const firebaseConfig = {
   storageBucket: "revista-digital-bb5d4.appspot.com",
   messagingSenderId: "17548864478"
 };
+enableProdMode();
 
 @NgModule({
   declarations: [

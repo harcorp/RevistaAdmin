@@ -135,10 +135,16 @@
                   </button>
                 </ion-col>
               </ion-row>
-            <audio *ngIf="!editAud" style="width: 100%" controlsList="nodownload" controls [attr.src]="dato.audio | urlImage | async"></audio>   
+            <audio *ngIf="!editAud" style="width: 100%" controlsList="nodownload" controls [attr.src]="dato.audio | urlImage | async"></audio>  
+            <ion-card-content *ngIf="!editAud">
+              <p>{{ dato.texto }}</p>  
+            </ion-card-content> 
             <ion-item *ngIf="editAud">
-                <input type="file"  accept="audio/mp3" id="thumbnail" (change)="fileEvent2($event)" />
-            </ion-item>                         
+                <input type="file"  accept="audio/mp3" (change)="fileEvent2($event)" />
+            </ion-item>  
+            <ion-item *ngIf="editAud">
+              <ion-input type="text" [(ngModel)]="dato.texto"></ion-input>
+          </ion-item>                       
         </ion-card>
     </ion-col>
   </ion-row>

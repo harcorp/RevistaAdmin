@@ -164,6 +164,12 @@ export class PublicidadPage {
             });
           });
         });
+      }else if(this.dato.texto != ""){
+       this.datos.update({texto : this.dato.texto}).then(
+         result => {
+           this.presentToast("Descripción actualizada");
+           this.editAud = false;
+         }); 
       }else{
         this.editAud = !this.editAud;                
         this.presentToast('Sin ningun cambio');

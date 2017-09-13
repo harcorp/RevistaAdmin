@@ -3,4 +3,5 @@ export class Dato{
     imagen: any;
     audio: any;
     quienesSomos: string;
+    texto: string;
 }
