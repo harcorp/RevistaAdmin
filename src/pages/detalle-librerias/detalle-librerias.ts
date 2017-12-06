@@ -31,8 +31,8 @@ export class DetalleLibreriasPage {
       this.formulario = this.formBulder.group({
         nombre: ['', Validators.compose([Validators.required])],
         descripcion: ['', Validators.compose([Validators.required])],
-        file: ['', Validators.compose([Validators.required])],
         thumbnail: ['', Validators.compose([Validators.required])],
+        url: ['', Validators.compose([Validators.required])],
       });
   }
 
@@ -45,51 +45,35 @@ export class DetalleLibreriasPage {
     }
   }
 
-  fileEvent(fileInput: any){
-    let file = fileInput.target.files[0];
-    this.libreria.type = this.getType(file.name);
-    this.libreria.file = file;
-  }
-
   fileEvent2(fileInput: any){
     let thumbnail = fileInput.target.files[0];
     this.libreria.thumbnail = thumbnail;
   }
 
   cargar(){
-    if (!this.formulario.valid && this.libreria.file == undefined && this.libreria.thumbnail){
-      this.presentToast('Complete el formulario');
-    } else {
-      let loader = this.loadingCtrl.create({
-        content: "Cargando...",
-        dismissOnPageChange: true
-      });
-      loader.present();
-      var filename = "";
-      if(this.type == 1){
-        filename = '/libreriaDigital/' + this.libreria.file.name;      
-      }else{
-        filename = '/libreriaArticulos/' + this.libreria.file.name;            
+      if (!this.formulario.valid && this.libreria.thumbnail == undefined){
+        this.presentToast('Complete el formulario');
+      } else {
+        this.carga2();
       }
-      let uuid = UUID.UUID();      
-      var filenameThumb = '/imagen/' + uuid + '/' + this.libreria.thumbnail.name;            
-      var uploadTask = this.fb.storage().ref(filename).put(this.libreria.file);
-      this.fb.storage().ref(filenameThumb).put(this.libreria.thumbnail).then(resultado => {  
-        uploadTask.on('state_changed', function(snapshot){
-          var progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100;
-          loader.setContent('Cargando ' + Math.floor(progress) + '% / 100%');
+  }
+
+  carga2(){
+    let loader = this.loadingCtrl.create({
+      content: "Cargando...",
+      dismissOnPageChange: true
+    });
+    loader.present();
+    let uuid = UUID.UUID();      
+    var filenameThumb = '/imagen/' + uuid + '/' + this.libreria.thumbnail.name;            
+    this.fb.storage().ref(filenameThumb).put(this.libreria.thumbnail).then(resultado => {  
+      this.libreria.thumbnail = filenameThumb;
+      this.biblioteca.push(this.libreria).then(result => {
+          loader.dismiss();
+          this.presentToast('Se cargo exitosamente el archivo.');
+          this.navCtrl.pop();
         });
-        uploadTask.then(resultado => {
-        this.libreria.file = filename;
-        this.libreria.thumbnail = filenameThumb;
-        this.biblioteca.push(this.libreria).then(result => {
-            loader.dismiss();
-            this.presentToast('Se cargo exitosamente el archivo.');
-            this.navCtrl.pop();
-          });
-        });
-      });
-    }
+    });
   }
 
   presentToast(mensaje: string) {

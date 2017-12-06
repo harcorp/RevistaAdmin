@@ -5,4 +5,6 @@ export class Libreria{
     nombre: string;
     type: string;
     thumbnail: any;
+    url: string;
+    compra: boolean;
 }

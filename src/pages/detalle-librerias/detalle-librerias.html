@@ -34,14 +34,17 @@
                   <p>Campo Requerido.</p>
               </ion-item>
               <ion-item>
+                <ion-label color="primary" stacked>URL</ion-label>
+                <ion-input #url formControlName="url" [(ngModel)]="libreria.url" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="error-message" *ngIf="!formulario.controls.url.valid">
+                <p>Campo Requerido.</p>
+              </ion-item>
+              <ion-item>
                 Imagen: 
                 <input type="file" formControlName="thumbnail" #thumbnail accept="image/*" id="thumbnail" (change)="fileEvent2($event)" />
               </ion-item>
-              <ion-item>
-                Archivo:
-                <input type="file" formControlName="file" accept="pdf|docx|doc|image/*" id="file" (change)="fileEvent($event)" />
-              </ion-item>
-              <ion-item class="error-message" *ngIf="!formulario.controls.file.valid">
+              <ion-item class="error-message" *ngIf="!formulario.controls.thumbnail.valid">
                   <p>Debe subir un archivo valido. pdf,docx,doc,imagen</p>
               </ion-item>
           </ion-list>

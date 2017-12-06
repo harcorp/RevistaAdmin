@@ -33,6 +33,13 @@
                     <ion-item class="error-message" *ngIf="!formulario.controls.descripcion.valid">
                         <p>Campo Requerido.</p>
                     </ion-item>
+                    <ion-item>
+                      <ion-label color="primary" stacked>URL</ion-label>
+                      <ion-input #url formControlName="url" [(ngModel)]="articulo.url" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item class="error-message" *ngIf="!formulario.controls.url.valid">
+                        <p>Campo Requerido.</p>
+                    </ion-item>
                 </ion-list>
                 <ion-row>
                   <ion-col>

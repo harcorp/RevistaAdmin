@@ -34,27 +34,6 @@
           </ion-list>
         </ion-card-content>
       </ion-card>
-      <ion-card>
-          <ion-row>
-              <ion-col>
-                <ion-card-title>
-                  Quienes Somos
-                </ion-card-title>
-              </ion-col>
-              <ion-col text-right>
-                <button ion-button small clear icon-only (click)="editarQS()">
-                    <ion-icon *ngIf="!editQS" name="create"></ion-icon>
-                    <ion-icon *ngIf="editQS" name="checkmark"></ion-icon>
-                </button>
-              </ion-col>
-            </ion-row>
-            <ion-card-content>
-          <p *ngIf="!editQS">{{ dato.quienesSomos }}</p>
-          <ion-item *ngIf="editQS">
-              <ion-textarea type="text" [(ngModel)]="dato.quienesSomos" id="thumbnail"></ion-textarea>
-          </ion-item>    
-        </ion-card-content>                     
-      </ion-card>
     </ion-col>
     <ion-col>
       <ion-card>
@@ -79,6 +58,25 @@
             </ion-list>
         </ion-card-content>
       </ion-card>
+      <ion-card>
+        <ion-row>
+            <ion-col>
+              <ion-card-title>
+                Imagen Quienes Somos
+              </ion-card-title>
+            </ion-col>
+            <ion-col text-right>
+              <button ion-button small clear icon-only (click)="editarQS()">
+                  <ion-icon *ngIf="!editQS" name="create"></ion-icon>
+                  <ion-icon *ngIf="editQS" name="checkmark"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        <img *ngIf="!editQS" [attr.src]="dato.quienesSomos | urlImage | async">
+        <ion-item *ngIf="editQS">
+            <input type="file"  accept="image/*" id="thumbnail" (change)="fileEvent3($event)" />
+          </ion-item>
+    </ion-card>
     </ion-col>
     <ion-col>
         <ion-card>

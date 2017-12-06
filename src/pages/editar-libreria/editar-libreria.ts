@@ -23,7 +23,6 @@ export class EditarLibreriaPage {
 
     this.uid = this.navParams.get('articulo');
     this.type = this.navParams.get('tipo');
-    console.log(this.type);
     if(this.type == 1){
       this.art = this.afDB.object('biblioteca_articulos/' + this.uid, { preserveSnapshot: true});
       this.art.subscribe(v => {
@@ -41,13 +40,15 @@ export class EditarLibreriaPage {
     this.formulario = this.formBuilder.group({
       nombre: ['', Validators.compose([Validators.required])],
       descripcion: ['', Validators.compose([Validators.required])],
+      url: ['', Validators.compose([Validators.required])],
     });
   }
 
   update(){
     this.art.update({
       nombre: this.formulario.value.nombre,
-      descripcion: this.formulario.value.descripcion
+      descripcion: this.formulario.value.descripcion,
+      url: this.formulario.value.url
     }).then(v => {
       this.presentToast('Actualización Correcta');
       this.dismiss();

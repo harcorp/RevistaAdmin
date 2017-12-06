@@ -27,8 +27,8 @@ export class PublicidadPage {
   loader: any;
 
   imagen: any;
+  imagenQS: any;
   audio: any;
-  quienesSomos: string;
 
   constructor(public afDB: AngularFireDatabase, public alertCtrl: AlertController,
     public toastCtrl: ToastController, public loadingCtrl: LoadingController,
@@ -38,7 +38,6 @@ export class PublicidadPage {
       this.datos.subscribe(v => {
         this.dato = v.val();
         this.videoId = this.dato.videoId;
-        this.quienesSomos = this.dato.quienesSomos;
       });
       this.bannersInicio = this.afDB.list('/banners', {
         query: {
@@ -216,20 +215,35 @@ export class PublicidadPage {
     this.audio = file;
   }
 
+  fileEvent3(fileInput: any){
+    let file = fileInput.target.files[0];
+    this.imagenQS = file;
+  }
+
   editarQS(){
     if(this.editQS){
-      if(this.dato.quienesSomos != this.quienesSomos){
+      if(this.imagenQS != null){
         this.presentLoading();
-        this.datos.update({quienesSomos: this.dato.quienesSomos}).then(result => {
-          this.loader.dismiss();
-          this.presentToast('Actualización Correcta.');
+        this.fb.storage().ref(this.dato.quienesSomos).delete().then(v => {
+          this.dato.quienesSomos = this.imagenQS;
+          var filename = this.dato.quienesSomos.name;      
+          this.fb.storage().ref(filename).put(this.dato.quienesSomos).then(resolve => {
+            this.dato.quienesSomos = filename;
+            this.datos.update({quienesSomos: filename}).then(result => {
+              this.loader.dismiss();
+              this.imagen = null;                  
+              this.presentToast('Imagen actualizada.');
+              this.editQS = !this.editQS;
+              
+            });
+          });
         });
       }else{
-        this.presentToast('Ningun Cambio');
+        this.editQS = !this.editQS;                
+        this.presentToast('Sin ningun cambio');
       }
-      this.editQS = !this.editQS;
     }else{
-      this.editQS = !this.editQS;
+      this.editQS = !this.editQS;              
     }
   }
 }

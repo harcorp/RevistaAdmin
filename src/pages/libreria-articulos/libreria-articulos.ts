@@ -33,7 +33,7 @@ export class LibreriaArticulosPage {
     this.navCtrl.push(DetalleLibreriasPage, { type });
   }
 
-  eliminar(key: string, file: string, thumbnail, string){
+  eliminar(key: string, thumbnail, string){
     let confirm = this.alertCtrl.create({
       title: '¿Desea eliminar este archivo?',
       buttons: [
@@ -46,7 +46,7 @@ export class LibreriaArticulosPage {
         {
           text: 'Aceptar',
           handler: () => {
-            this.eliminarFinal(key, file, thumbnail);
+            this.eliminarFinal(key, thumbnail);
           }
         }
       ]
@@ -54,17 +54,14 @@ export class LibreriaArticulosPage {
     confirm.present();
   }
 
-  eliminarFinal(key: string, file: string, thumbnail: string){
+  eliminarFinal(key: string,thumbnail: string){
     this.presentLoading();
-    this.fb.storage().ref().child(file).delete().then(
-      ref => {
-        this.fb.storage().ref().child(thumbnail).delete().then(v => {
-          this.articulos.remove(key).then(resolve => {
-            this.loader.dismiss();
-            this.presentToast('Eliminado satisfactoriamente');
-          });
-        });
+    this.fb.storage().ref().child(thumbnail).delete().then(v => {
+      this.articulos.remove(key).then(resolve => {
+        this.loader.dismiss();
+        this.presentToast('Eliminado satisfactoriamente');
       });
+    });
   }
 
   presentToast(mensaje: string) {
