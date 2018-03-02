@@ -40,6 +40,7 @@ export class EditarLibreriaPage {
     this.formulario = this.formBuilder.group({
       nombre: ['', Validators.compose([Validators.required])],
       descripcion: ['', Validators.compose([Validators.required])],
+      autor: ['', Validators.compose([Validators.required])],
       url: [''],
     });
   }
@@ -48,6 +49,7 @@ export class EditarLibreriaPage {
     this.art.update({
       nombre: this.formulario.value.nombre,
       descripcion: this.formulario.value.descripcion,
+      autor: this.formulario.value.autor,
       url: this.formulario.value.url
     }).then(v => {
       this.presentToast('Actualización Correcta');

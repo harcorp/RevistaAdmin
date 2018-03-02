@@ -31,6 +31,7 @@ export class DetalleLibreriasPage {
     this.formulario = this.formBulder.group({
       nombre: ['', Validators.compose([Validators.required])],
       descripcion: ['', Validators.compose([Validators.required])],
+      autor: ['', Validators.compose([Validators.required])],
       thumbnail: [''],
       url: [''],
       file: [''],

@@ -17,22 +17,31 @@
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <form [formGroup]="formulario" (submit)="cargar()" novalidate>                
-          <ion-list>
+          <form [formGroup]="formulario" (submit)="cargar()" novalidate>
+            <ion-list>
               <ion-item>
-                <ion-label color="primary" stacked>Nombre</ion-label>    
+                <ion-label color="primary" stacked>Nombre</ion-label>
                 <ion-input #nombre formControlName="nombre" [(ngModel)]="libreria.nombre" type="text"></ion-input>
               </ion-item>
               <ion-item class="error-message" *ngIf="!formulario.controls.nombre.valid">
-                  <p>Campo Requerido.</p>
+                <p>Campo Requerido.</p>
               </ion-item>
               <ion-item>
                 <ion-label color="primary" stacked>Descripción</ion-label>
                 <ion-input #descripcion formControlName="descripcion" [(ngModel)]="libreria.descripcion" type="text"></ion-input>
               </ion-item>
               <ion-item class="error-message" *ngIf="!formulario.controls.descripcion.valid">
-                  <p>Campo Requerido.</p>
+                <p>Campo Requerido.</p>
               </ion-item>
+
+              <ion-item>
+                <ion-label color="primary" stacked>Autor</ion-label>
+                <ion-input #autor formControlName="autor" [(ngModel)]="libreria.autor" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="error-message" *ngIf="!formulario.controls.autor.valid">
+                <p>Campo Requerido.</p>
+              </ion-item>
+
               <ion-item>
                 <ion-label color="primary" stacked>URL</ion-label>
                 <ion-input #url formControlName="url" [(ngModel)]="libreria.url" type="text"></ion-input>
@@ -45,16 +54,16 @@
                 <input type="file" formControlName="file" accept="pdf|docx|doc|image/*" id="file" (change)="fileEvent($event)" />
               </ion-item>
               <ion-item>
-                Imagen: 
+                Imagen:
                 <input type="file" formControlName="thumbnail" #thumbnail accept="image/*" id="thumbnail" (change)="fileEvent2($event)" />
               </ion-item>
-          </ion-list>
-          <ion-row>
-            <ion-col>
-              <button ion-button block [disabled]="!formulario.valid">Publicar</button>
-            </ion-col>
-          </ion-row>
-            </form>
+            </ion-list>
+            <ion-row>
+              <ion-col>
+                <button ion-button block [disabled]="!formulario.valid">Publicar</button>
+              </ion-col>
+            </ion-row>
+          </form>
         </ion-card-content>
       </ion-card>
     </ion-col>
