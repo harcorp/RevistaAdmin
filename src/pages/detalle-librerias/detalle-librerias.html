@@ -41,16 +41,17 @@
                 <p>Campo Requerido.</p>
               </ion-item>
               <ion-item>
+                Archivo:
+                <input type="file" formControlName="file" accept="pdf|docx|doc|image/*" id="file" (change)="fileEvent($event)" />
+              </ion-item>
+              <ion-item>
                 Imagen: 
                 <input type="file" formControlName="thumbnail" #thumbnail accept="image/*" id="thumbnail" (change)="fileEvent2($event)" />
-              </ion-item>
-              <ion-item class="error-message" *ngIf="!formulario.controls.thumbnail.valid">
-                  <p>Debe subir un archivo valido. pdf,docx,doc,imagen</p>
               </ion-item>
           </ion-list>
           <ion-row>
             <ion-col>
-              <button ion-button block>Publicar</button>
+              <button ion-button block [disabled]="!formulario.valid">Publicar</button>
             </ion-col>
           </ion-row>
             </form>

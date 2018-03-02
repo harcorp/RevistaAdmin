@@ -40,7 +40,7 @@ export class EditarLibreriaPage {
     this.formulario = this.formBuilder.group({
       nombre: ['', Validators.compose([Validators.required])],
       descripcion: ['', Validators.compose([Validators.required])],
-      url: ['', Validators.compose([Validators.required])],
+      url: [''],
     });
   }
 
