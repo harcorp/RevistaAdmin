@@ -93,8 +93,9 @@ export class DetalleLibreriasPage {
         loader.setContent('Cargando ' + Math.floor(progress) + '% / 100%');
       });
       uploadTask.then(resultado => {
-        this.libreria.url = null;
+        this.libreria.url = this.libreria.url != null ? this.libreria.url : null;
         this.libreria.file = filename;
+        this.libreria.fileURL = resultado.downloadURL;
         this.libreria.thumbnail = filenameThumb;
         this.biblioteca.push(this.libreria).then(result => {
           loader.dismiss();

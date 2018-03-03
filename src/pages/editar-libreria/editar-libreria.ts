@@ -50,7 +50,7 @@ export class EditarLibreriaPage {
       nombre: this.formulario.value.nombre,
       descripcion: this.formulario.value.descripcion,
       autor: this.formulario.value.autor,
-      url: this.formulario.value.url
+      url: this.formulario.value.url != "" ? this.formulario.value.url : null,
     }).then(v => {
       this.presentToast('Actualización Correcta');
       this.dismiss();
