@@ -43,6 +43,7 @@ export class AgregarPublicidadPage {
       var filename = '/banners/' + uuid + '/' + this.banner.image.name;      
       this.fb.storage().ref(filename).put(this.banner.image).then(resultado => {
       this.banner.image = filename;
+      this.banner.imageURL = resultado.downloadURL;
       this.listBanners.push(this.banner).then(result => {
           loader.dismiss();
           this.presentToast('Se cargo exitosamente el archivo.');
